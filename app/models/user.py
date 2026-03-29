@@ -16,7 +16,9 @@ class User(SQLModel, table=True):
     __tablename__ = "users"
 
     id: uuid.UUID = Field(sa_column=Column(UUID(as_uuid=True), primary_key=True, default=uuid.uuid4))
+    display_name: str = Field(sa_column=Column(String(100), nullable=False))
     email: str = Field(sa_column=Column(String(100), unique=True, nullable=False))
+    password: str = Field(sa_column=Column(String(100), nullable=False))
     timezone: str = Field(sa_column=Column(String(50), nullable=False))
     created_at: datetime = Field(
         sa_column=Column(TIMESTAMP(timezone=True), nullable=False),
