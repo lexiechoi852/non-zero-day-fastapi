@@ -22,8 +22,12 @@ class Action(SQLModel, table=True):
         default_factory=lambda: datetime.now(timezone.utc)
     )
     updated_at: datetime = Field(
-        sa_column=Column(TIMESTAMP(timezone=True), nullable=False),
-        default_factory=lambda: datetime.now(timezone.utc)
+        sa_column=Column(
+            TIMESTAMP(timezone=True),
+            nullable=False,
+            default=lambda: datetime.now(timezone.utc),
+            onupdate=lambda: datetime.now(timezone.utc),
+        )
     )
 
     habit: "Habit" = Relationship(back_populates="actions")
